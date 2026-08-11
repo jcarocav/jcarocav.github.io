@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joaquín Caroca — Desarrollador Web Junior</title>
+<meta name="description" content="Portafolio de Joaquín Caroca, desarrollador web junior en Punta Arenas, Chile. Disponible 100% remoto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10161d;
+    --bg-panel: #161f29;
+    --bg-panel-2: #1b2530;
+    --ink: #ece8de;
+    --ink-dim: #8e9aaa;
+    --line: #2b3a4a;
+    --line-soft: #223141;
+    --amber: #f2a93b;
+    --amber-dim: #c98a2c;
+    --teal: #5fbfb0;
+    --max: 920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--amber); color:#10161d; }
+  a{ color:var(--teal); }
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+  h1,h2,h3, .mono{
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(16,22,29,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px;
+  }
+  .brand{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    letter-spacing:0.02em;
+    font-size:15px;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .brand span{ color:var(--amber); }
+  #langToggle{
+    font-family:'IBM Plex Mono', monospace;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    border-radius:20px;
+    padding:6px 14px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  #langToggle:hover{ border-color:var(--amber); color:var(--amber); }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    color:var(--teal);
+    text-transform:uppercase;
+    margin:0 0 14px;
+  }
+  h1.name{
+    font-size:clamp(32px, 6vw, 52px);
+    line-height:1.05;
+    margin:0 0 10px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .role{
+    font-size:clamp(16px, 2.4vw, 19px);
+    color:var(--ink-dim);
+    margin:0 0 28px;
+    max-width:52ch;
+  }
+  .role strong{ color:var(--ink); font-weight:600; }
+
+  /* ladder diagram */
+  .ladder-block{ margin:36px 0 8px; }
+  svg.ladder{ width:100%; height:auto; display:block; }
+  .rail{
+    stroke:var(--line-soft);
+    stroke-width:2;
+    fill:none;
+  }
+  .rail.flow{
+    stroke:var(--amber-dim);
+    stroke-dasharray:4 10;
+    animation:flow 3.2s linear infinite;
+  }
+  .rung-line{ stroke:var(--line-soft); stroke-width:2; }
+  .contact{ stroke:var(--ink-dim); stroke-width:2; }
+  .coil{ stroke:var(--teal); stroke-width:2; fill:none; }
+  .rung-label-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    fill:var(--amber);
+    letter-spacing:0.05em;
+  }
+  .rung-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    fill:var(--ink);
+    font-weight:600;
+  }
+  .rung-sub{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:11.5px;
+    fill:var(--ink-dim);
+  }
+  .rung-group{ opacity:0; animation:reveal .6s ease-out forwards; }
+  .rung-group.r1{ animation-delay:.15s; }
+  .rung-group.r2{ animation-delay:.55s; }
+  .rung-group.r3{ animation-delay:.95s; }
+
+  @keyframes flow{ to{ stroke-dashoffset:-140; } }
+  @keyframes reveal{ from{ opacity:0; transform:translateX(-6px);} to{ opacity:1; transform:translateX(0);} }
+
+  @media (prefers-reduced-motion: reduce){
+    .rail.flow{ animation:none; }
+    .rung-group{ animation:none; opacity:1; }
+  }
+
+  /* terminal skills check */
+  .term-block{ margin:36px 0 8px; }
+  .term{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    max-width:480px;
+    overflow:hidden;
+  }
+  .term-bar{ display:flex; gap:6px; padding:10px 14px; border-bottom:1px solid var(--line); }
+  .term-bar span{ width:9px; height:9px; border-radius:50%; background:var(--line-soft); display:inline-block; }
+  .term-body{ padding:18px 20px 20px; }
+  .term-line{
+    margin:0 0 9px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    color:var(--ink);
+  }
+  .term-line.cmd{ color:var(--teal); margin-bottom:14px; }
+  .term-line.item{ opacity:0; animation:reveal .45s ease-out forwards; }
+  .term-line .ok{ color:var(--amber); margin-right:8px; }
+  .term-line.ready{ color:var(--ink-dim); margin:14px 0 0; }
+  .cursor{ animation:blink 1s step-end infinite; }
+  .term-line.i1{ animation-delay:.5s; }
+  .term-line.i2{ animation-delay:.72s; }
+  .term-line.i3{ animation-delay:.94s; }
+  .term-line.i4{ animation-delay:1.16s; }
+  .term-line.i5{ animation-delay:1.38s; }
+  .term-line.i6{ animation-delay:1.6s; }
+
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .term-line.item{ animation:none; opacity:1; }
+    .cursor{ animation:none; }
+  }
+
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.03em;
+    padding:11px 20px;
+    border-radius:4px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid transparent;
+    transition:transform .12s, border-color .12s, background .12s;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{ background:var(--amber); color:#191008; font-weight:600; }
+  .btn-primary:hover{ background:#ffbb52; }
+  .btn-ghost{ border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal); }
+  .btn-linkedin{ background:#0A66C2; color:#fff; font-weight:600; }
+  .btn-linkedin:hover{ background:#0b5cad; }
+
+  /* ---------- sections ---------- */
+  section{ padding:56px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  h2.section-title{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin:0 0 28px;
+    display:flex; align-items:center; gap:12px;
+  }
+  h2.section-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  .about p{
+    max-width:68ch;
+    color:var(--ink-dim);
+    font-size:15.5px;
+  }
+  .about p strong{ color:var(--ink); }
+
+  .plus-intro{
+    max-width:66ch;
+    color:var(--ink-dim);
+    font-size:15.5px;
+    margin:0 0 8px;
+  }
+  .plus-intro strong{ color:var(--ink); }
+
+  /* projects */
+  .project{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:18px;
+    padding:22px 0;
+    border-top:1px solid var(--line-soft);
+  }
+  .project:first-of-type{ border-top:none; }
+  .rung-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--amber-dim);
+    letter-spacing:0.05em;
+    padding-top:3px;
+  }
+  .project h3{
+    margin:0 0 6px;
+    font-size:17px;
+    color:var(--ink);
+  }
+  .project h3 a{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line-soft); }
+  .project h3 a:hover{ color:var(--teal); border-color:var(--teal); }
+  .project p{
+    margin:0;
+    color:var(--ink-dim);
+    font-size:14.5px;
+    max-width:60ch;
+  }
+  .stack-tags{ margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+  .stack-tags span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--teal);
+    border:1px solid var(--line-soft);
+    padding:3px 8px;
+    border-radius:3px;
+  }
+
+  /* BOM table */
+  table.bom{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  table.bom caption{
+    text-align:left;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-dim);
+    letter-spacing:0.05em;
+    margin-bottom:14px;
+  }
+  table.bom th{
+    text-align:left;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+    padding:0 12px 10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.bom td{
+    padding:12px 12px 12px 0;
+    border-bottom:1px solid var(--line-soft);
+    color:var(--ink-dim);
+    vertical-align:top;
+  }
+  table.bom td:first-child{ color:var(--ink); font-weight:500; }
+  table.bom tr:last-child td{ border-bottom:none; }
+
+  /* education */
+  .edu-item{ padding:14px 0; border-top:1px solid var(--line-soft); }
+  .edu-item:first-of-type{ border-top:none; }
+  .edu-item .deg{ color:var(--ink); font-weight:600; font-size:15px; }
+  .edu-item .org{ color:var(--ink-dim); font-size:13.5px; }
+
+  /* footer */
+  footer{ padding:48px 0 64px; }
+  footer .grid{
+    display:flex; flex-wrap:wrap; gap:28px 40px;
+    align-items:flex-start; justify-content:space-between;
+  }
+  footer h2.section-title{ margin-bottom:18px; }
+  .contact-list{ display:flex; flex-direction:column; gap:10px; }
+  .contact-list a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-soft);
+    width:fit-content;
+    padding-bottom:2px;
+  }
+  .contact-list a:hover{ color:var(--amber); border-color:var(--amber); }
+  .loc{
+    font-size:13.5px;
+    color:var(--ink-dim);
+    max-width:32ch;
+  }
+
+  .lang-en{ display:none !important; }
+  html[data-lang="en"] .lang-es{ display:none !important; }
+  html[data-lang="en"] p.lang-en,
+  html[data-lang="en"] div.lang-en{ display:block !important; }
+  html[data-lang="en"] h2.lang-en{ display:flex !important; }
+  html[data-lang="en"] th.lang-en,
+  html[data-lang="en"] td.lang-en{ display:table-cell !important; }
+  html[data-lang="en"] caption.lang-en{ display:table-caption !important; }
+  html[data-lang="en"] a.lang-en{ display:inline-flex !important; }
+  html[data-lang="en"] span.lang-en{ display:inline !important; }
+  html[data-lang="en"] text.lang-en{ display:inline !important; }
+
+  @media (max-width:600px){
+    .project{ grid-template-columns:1fr; gap:6px; }
+    .rung-tag{ padding-top:0; }
+    table.bom{ font-size:13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand">JCAROCA<span>_</span>DEV</a>
+    <button id="langToggle" type="button" aria-label="Switch language">ES / EN</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow lang-es">Punta Arenas, Chile · disponible 100% remoto</p>
+    <p class="eyebrow lang-en">Punta Arenas, Chile · available 100% remote</p>
+
+    <h1 class="name">Joaquín Caroca</h1>
+
+    <p class="role lang-es">
+      <strong>Desarrollador Web Junior</strong> — HTML, CSS, JavaScript, Git y las habilidades que suelen pedir la mayoría de los puestos de programación. Portafolio real, inglés C1, listo para equipos remotos.
+    </p>
+    <p class="role lang-en">
+      <strong>Junior Web Developer</strong> — HTML, CSS, JavaScript, Git and the skills most programming roles look for. Real client portfolio, C1 English, ready for remote teams.
+    </p>
+
+    <div class="term-block">
+      <div class="term" role="img" aria-label="Terminal mostrando lista de habilidades técnicas verificadas">
+        <div class="term-bar"><span></span><span></span><span></span></div>
+        <div class="term-body">
+          <p class="term-line cmd">$ whoami --skills</p>
+          <p class="term-line item i1"><span class="ok">✓</span><span class="lang-es">HTML5 semántico</span><span class="lang-en">Semantic HTML5</span></p>
+          <p class="term-line item i2"><span class="ok">✓</span><span class="lang-es">CSS3 · Flexbox · Grid · Responsive</span><span class="lang-en">CSS3 · Flexbox · Grid · Responsive</span></p>
+          <p class="term-line item i3"><span class="ok">✓</span><span class="lang-es">JavaScript (ES6+) · DOM · Fetch/APIs</span><span class="lang-en">JavaScript (ES6+) · DOM · Fetch/APIs</span></p>
+          <p class="term-line item i4"><span class="ok">✓</span><span class="lang-es">Git &amp; GitHub</span><span class="lang-en">Git &amp; GitHub</span></p>
+          <p class="term-line item i5"><span class="ok">✓</span><span class="lang-es">Debugging &amp; DevTools</span><span class="lang-en">Debugging &amp; DevTools</span></p>
+          <p class="term-line item i6"><span class="ok">✓</span><span class="lang-es">Despliegue en producción</span><span class="lang-en">Deployed to production</span></p>
+          <p class="term-line ready lang-es">&gt; listo para el siguiente proyecto<span class="cursor">_</span></p>
+          <p class="term-line ready lang-en">&gt; ready for the next project<span class="cursor">_</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary lang-es" href="https://github.com/jcarocav" target="_blank" rel="noopener">Ver proyectos</a>
+      <a class="btn btn-primary lang-en" href="https://github.com/jcarocav" target="_blank" rel="noopener">View projects</a>
+      <a class="btn btn-linkedin" href="https://www.linkedin.com/in/jcaroca" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost lang-es" href="mailto:j.caroca.varas@gmail.com">Escribir un correo</a>
+      <a class="btn btn-ghost lang-en" href="mailto:j.caroca.varas@gmail.com">Send an email</a>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="sobre-mi">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Sobre mí</h2>
+    <h2 class="section-title lang-en">About</h2>
+    <p class="lang-es">Soy desarrollador web autodidacta: aprendí con <strong>freeCodeCamp</strong> y lo puse a prueba construyendo sitios reales para negocios de Punta Arenas — una cafetería, un tour operador, una tienda de mascotas, una peluquería. Trabajo cómodo con HTML, CSS, JavaScript y React, y me manejo bien con Git, consumo de APIs y despliegue en producción. Disponible 100% remoto, con inglés C1 (EF SET) para trabajar sin fricción en equipos internacionales, y sin problema en viajar ocasionalmente si el puesto lo requiere.</p>
+    <p class="lang-en">I'm a self-taught web developer: I learned through <strong>freeCodeCamp</strong> and tested it by building real sites for small businesses in Punta Arenas — a café, a tour operator, a pet store, a hair salon. I'm comfortable with HTML, CSS, JavaScript and React, and solid with Git, consuming APIs, and shipping to production. Available 100% remote, C1 English (EF SET) to work smoothly with international teams, and happy to travel occasionally if a role calls for it.</p>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Proyectos</h2>
+    <h2 class="section-title lang-en">Projects</h2>
+
+    <div class="project">
+      <div class="rung-tag">RUNG 01</div>
+      <div>
+        <h3><a href="https://jcarocav.github.io/korner-barcoffeeshop-web/" target="_blank" rel="noopener">Körner — café-bar</a></h3>
+        <p class="lang-es">HTML/CSS/JS puro, evolucionado desde una versión inicial en React + TypeScript + Tailwind. Carrito con flujo de pedido por WhatsApp. Desplegado en GitHub Pages.</p>
+        <p class="lang-en">Pure HTML/CSS/JS, evolved from an initial React + TypeScript + Tailwind version. Cart with WhatsApp order flow. Deployed on GitHub Pages.</p>
+        <div class="stack-tags"><span>HTML/CSS/JS</span><span>React</span><span>WhatsApp</span><span>GitHub Pages</span></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="rung-tag">RUNG 02</div>
+      <div>
+        <h3><a href="https://github.com/jcarocav/tour-guide-web" target="_blank" rel="noopener">Road's End Patagonia Tours &amp; Travels</a></h3>
+        <p class="lang-es">Sitio turístico bilingüe (ES/EN) para un guía de Punta Arenas, con datos estructurados Schema.org para SEO y paneles de itinerario por tour.</p>
+        <p class="lang-en">Bilingual (ES/EN) tourism site for a Punta Arenas guide, with Schema.org structured data for SEO and per-tour itinerary panels.</p>
+        <div class="stack-tags"><span>i18n ES/EN</span><span>Schema.org SEO</span></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="rung-tag">RUNG 03</div>
+      <div>
+        <h3>Café del Bueno</h3>
+        <p class="lang-es">Landing page con menú interactivo y carrito que arma y envía el pedido automáticamente por WhatsApp. SEO local optimizado.</p>
+        <p class="lang-en">Landing page with interactive menu and a cart that builds and sends the order via WhatsApp automatically. Optimized for local SEO.</p>
+        <div class="stack-tags"><span>HTML/CSS/JS</span><span>WhatsApp</span><span>SEO local</span></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="rung-tag">RUNG 04</div>
+      <div>
+        <h3>Maskotería Akyra</h3>
+        <p class="lang-es">Catálogo de productos filtrable por categoría, sincronizado con el inventario real del negocio mediante Google Sheets y Google Apps Script.</p>
+        <p class="lang-en">Filterable product catalog, synced to the store's real inventory via Google Sheets and Google Apps Script.</p>
+        <div class="stack-tags"><span>Google Apps Script</span><span>Google Sheets</span></div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="rung-tag">RUNG 05</div>
+      <div>
+        <h3>Eduardo's — Peluquería Unisex</h3>
+        <p class="lang-es">Sistema de reserva de hora por servicio, con disponibilidad en tiempo real gestionada vía Google Sheets y confirmación por WhatsApp.</p>
+        <p class="lang-en">Per-service appointment booking system, with real-time availability managed via Google Sheets and WhatsApp confirmation.</p>
+        <div class="stack-tags"><span>Google Sheets</span><span>WhatsApp</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="componentes">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Componentes</h2>
+    <h2 class="section-title lang-en">Components</h2>
+    <table class="bom">
+      <caption class="lang-es">// lista de componentes — como una BOM, pero de software</caption>
+      <caption class="lang-en">// component list — like a BOM, but for software</caption>
+      <thead>
+        <tr>
+          <th class="lang-es">Componente</th><th class="lang-en">Component</th>
+          <th class="lang-es">Categoría</th><th class="lang-en">Category</th>
+          <th class="lang-es">Uso</th><th class="lang-en">Use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>HTML5 · CSS3 · JavaScript (ES6+)</td>
+          <td class="lang-es">Fundamentos</td><td class="lang-en">Fundamentals</td>
+          <td class="lang-es">Lenguaje base de cualquier producto web</td>
+          <td class="lang-en">The base language behind every web product</td>
+        </tr>
+        <tr>
+          <td>Responsive Design · Flexbox · Grid</td>
+          <td class="lang-es">Fundamentos</td><td class="lang-en">Fundamentals</td>
+          <td class="lang-es">Interfaces que se adaptan a cualquier pantalla</td>
+          <td class="lang-en">Interfaces that adapt to any screen</td>
+        </tr>
+        <tr>
+          <td>Git · GitHub</td>
+          <td class="lang-es">Control de versiones</td><td class="lang-en">Version control</td>
+          <td class="lang-es">Historial de cambios y colaboración en equipo</td>
+          <td class="lang-en">Change history and team collaboration</td>
+        </tr>
+        <tr>
+          <td>Fetch/APIs · DevTools · Debugging</td>
+          <td class="lang-es">Fundamentos</td><td class="lang-en">Fundamentals</td>
+          <td class="lang-es">Consumo de datos externos y resolución de errores</td>
+          <td class="lang-en">Consuming external data and fixing errors</td>
+        </tr>
+        <tr>
+          <td>React · Vite · TypeScript</td>
+          <td class="lang-es">Frontend</td><td class="lang-en">Frontend</td>
+          <td class="lang-es">Interfaces más complejas cuando el proyecto lo pide</td>
+          <td class="lang-en">More complex interfaces when the project calls for it</td>
+        </tr>
+        <tr>
+          <td>Tailwind CSS · shadcn/ui</td>
+          <td class="lang-es">Frontend</td><td class="lang-en">Frontend</td>
+          <td class="lang-es">Sistemas de diseño rápidos y consistentes</td>
+          <td class="lang-en">Fast, consistent design systems</td>
+        </tr>
+        <tr>
+          <td>Google Sheets · Apps Script</td>
+          <td class="lang-es">Backend ligero</td><td class="lang-en">Lightweight backend</td>
+          <td class="lang-es">Catálogos e inventario en vivo, sin servidor propio</td>
+          <td class="lang-en">Live catalogs and inventory, no server to maintain</td>
+        </tr>
+        <tr>
+          <td>WhatsApp Business</td>
+          <td class="lang-es">Integración</td><td class="lang-en">Integration</td>
+          <td class="lang-es">Flujos de pedido y contacto directo con el cliente</td>
+          <td class="lang-en">Order flows and direct customer contact</td>
+        </tr>
+        <tr>
+          <td>GitHub Pages</td>
+          <td class="lang-es">Despliegue</td><td class="lang-en">Deployment</td>
+          <td class="lang-es">Hosting estático y puesta en producción</td>
+          <td class="lang-en">Static hosting and shipping to production</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="formacion">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Formación</h2>
+    <h2 class="section-title lang-en">Education</h2>
+
+    <div class="edu-item">
+      <div class="deg">freeCodeCamp — Responsive Web Design</div>
+      <div class="org lang-es">Certificación</div>
+      <div class="org lang-en">Certification</div>
+    </div>
+    <div class="edu-item">
+      <div class="deg lang-es">Inglés C1</div>
+      <div class="deg lang-en">English C1</div>
+      <div class="org">EF SET Certificate, 2025</div>
+    </div>
+    <div class="edu-item">
+      <div class="deg">Técnico en Automatización y Control Industrial</div>
+      <div class="org lang-es">Instituto Profesional IPLACEX, 2025 — con diplomados en Electrotecnia y Sistemas Eléctricos de Potencia, Accionamientos Eléctricos y Motores, Control de Procesos e Instrumentación, y Tecnología del Movimiento</div>
+      <div class="org lang-en">IPLACEX Professional Institute, 2025 — including diplomas in Electrotechnics &amp; Power Systems, Electric Drives &amp; Motors, Process Control &amp; Instrumentation, and Motion Technology</div>
+    </div>
+    <div class="edu-item">
+      <div class="deg lang-es">Diplomado en Asuntos Antárticos</div>
+      <div class="deg lang-en">Diploma in Antarctic Affairs</div>
+      <div class="org">Universidad de Magallanes, 2025</div>
+    </div>
+  </div>
+</section>
+
+<section id="plus">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Un Plus</h2>
+    <h2 class="section-title lang-en">A Plus</h2>
+    <p class="plus-intro lang-es">Antes de programar software, programé procesos: soy <strong>Técnico en Automatización y Control Industrial</strong> (IPLACEX, 2025). Esa lógica de sistemas se nota en cómo desarrollo — no como una habilidad aparte, sino como una forma de pensar que traigo al código:</p>
+    <p class="plus-intro lang-en">Before I programmed software, I programmed processes: I'm a certified <strong>Industrial Automation &amp; Control technician</strong> (IPLACEX, 2025). That systems logic shows up in how I build — not as a separate skill, but as a way of thinking I bring to code:</p>
+
+    <div class="ladder-block">
+      <svg class="ladder" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama tipo escalera: pensamiento en sistemas, automatización de procesos, control y debugging riguroso">
+        <line class="rail" x1="50" y1="20" x2="50" y2="280"></line>
+        <line class="rail flow" x1="50" y1="20" x2="50" y2="280"></line>
+        <line class="rail" x1="500" y1="20" x2="500" y2="280"></line>
+        <line class="rail flow" x1="500" y1="20" x2="500" y2="280" style="animation-delay:-1.6s"></line>
+
+        <g class="rung-group r1">
+          <line class="rung-line" x1="50" y1="60" x2="500" y2="60"></line>
+          <line class="contact" x1="88" y1="52" x2="88" y2="68"></line>
+          <line class="contact" x1="98" y1="52" x2="98" y2="68"></line>
+          <circle class="coil" cx="462" cy="60" r="10"></circle>
+          <text class="rung-label-num" x="112" y="45">RUNG 01</text>
+          <text class="rung-label lang-es" x="112" y="82">Pensamiento en Sistemas</text>
+          <text class="rung-label lang-en" x="112" y="82">Systems Thinking</text>
+          <text class="rung-sub lang-es" x="112" y="98">PLC, SCADA, HMI — estados y flujos antes de escribir código</text>
+          <text class="rung-sub lang-en" x="112" y="98">PLC, SCADA, HMI — states and flows before writing code</text>
+        </g>
+
+        <g class="rung-group r2">
+          <line class="rung-line" x1="50" y1="150" x2="500" y2="150"></line>
+          <line class="contact" x1="88" y1="142" x2="88" y2="158"></line>
+          <line class="contact" x1="98" y1="142" x2="98" y2="158"></line>
+          <circle class="coil" cx="462" cy="150" r="10"></circle>
+          <text class="rung-label-num" x="112" y="135">RUNG 02</text>
+          <text class="rung-label lang-es" x="112" y="172">Automatización de Procesos</text>
+          <text class="rung-label lang-en" x="112" y="172">Process Automation</text>
+          <text class="rung-sub lang-es" x="112" y="188">La misma lógica de válvulas y sensores, hoy en catálogos vía Apps Script</text>
+          <text class="rung-sub lang-en" x="112" y="188">Same logic once applied to valves and sensors, now in catalogs via Apps Script</text>
+        </g>
+
+        <g class="rung-group r3">
+          <line class="rung-line" x1="50" y1="240" x2="500" y2="240"></line>
+          <line class="contact" x1="88" y1="232" x2="88" y2="248"></line>
+          <line class="contact" x1="98" y1="232" x2="98" y2="248"></line>
+          <circle class="coil" cx="462" cy="240" r="10"></circle>
+          <text class="rung-label-num" x="112" y="225">RUNG 03</text>
+          <text class="rung-label lang-es" x="112" y="262">Control y Debugging Riguroso</text>
+          <text class="rung-label lang-en" x="112" y="262">Rigorous Control &amp; Debugging</text>
+          <text class="rung-sub lang-es" x="112" y="278">Control de lazo cerrado — la misma disciplina para corregir errores en código</text>
+          <text class="rung-sub lang-en" x="112" y="278">Closed-loop control — the same discipline for fixing bugs in code</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <div class="wrap">
+    <h2 class="section-title lang-es">Contacto</h2>
+    <h2 class="section-title lang-en">Contact</h2>
+    <div class="grid">
+      <div class="contact-list">
+        <a href="mailto:j.caroca.varas@gmail.com">j.caroca.varas@gmail.com</a>
+        <a href="https://wa.me/56979189999" target="_blank" rel="noopener">WhatsApp +56 9 7918 9999</a>
+        <a href="https://www.linkedin.com/in/jcaroca" target="_blank" rel="noopener">linkedin.com/in/jcaroca</a>
+        <a href="https://github.com/jcarocav" target="_blank" rel="noopener">github.com/jcarocav</a>
+      </div>
+      <p class="loc lang-es">Punta Arenas, Chile · disponible 100% remoto · disponibilidad para viajar ocasionalmente a reuniones.</p>
+      <p class="loc lang-en">Punta Arenas, Chile · available 100% remote · open to occasional travel for meetings.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('langToggle');
+  toggle.addEventListener('click', function(){
+    var html = document.documentElement;
+    var next = html.getAttribute('data-lang') === 'es' ? 'en' : 'es';
+    html.setAttribute('data-lang', next);
+    html.setAttribute('lang', next);
+  });
+</script>
+
+</body>
+</html>
